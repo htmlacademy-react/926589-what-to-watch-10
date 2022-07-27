@@ -5,8 +5,9 @@ import FilmPageScreen from '../../pages/film-page-screen/film-page-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
   titleFilm: string;
@@ -40,7 +41,13 @@ function App ({titleFilm, genre, releaseDate, posterFilm}: AppScreenProps): JSX.
         />
         <Route
           path={AppRoute.MyList}
-          element={<MyListScreen />}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <MyListScreen />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Player}
